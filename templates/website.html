@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    body {
+      font-family: Arial;
+      color: black;
+    }
+        
+    .split {
+      height: 100%;
+      width: 50%;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      overflow-x: hidden;
+      padding-top: 20px;
+    }
+        
+    .left {
+      left: 0;
+      background-color: white;
+    }
+        
+    .right {
+      right: 0;
+      background-color: lightgray;
+    }
+        
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+  </style>    
+  <body>
+    <h1>Alternative typing test</h1>
+    <div class="split left">
+      <div class="centered">
+        <form action="/" method="POST">
+          <h2>Questions</h2>
+          <table>
+            <tr>
+              {% for item in form.dichotomy_choices0 %}
+                <td>{{ item }}</td>
+                <td>{{ item.label }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for item in form.dichotomy_choices1 %}
+                <td>{{ item }}</td>
+                <td>{{ item.label }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for item in form.dichotomy_choices2 %}
+                <td>{{ item }}</td>
+                <td>{{ item.label }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for item in form.dichotomy_choices3 %}
+                <td>{{ item }}</td>
+                <td>{{ item.label }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for item in form.dichotomy_choices4 %}
+                <td>{{ item }}</td>
+                <td>{{ item.label }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for item in form.dichotomy_choices5 %}
+                <td>{{ item }}</td>
+                <td>{{ item.label }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for item in form.dichotomy_choices6 %}
+                <td>{{ item }}</td>
+                <td>{{ item.label }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for item in form.dichotomy_choices7 %}
+                <td>{{ item }}</td>
+                <td>{{ item.label }}</td>
+              {% endfor %}
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+            
+    <div class="split right">
+      <div class="centered">
+        <p>nothing here</p>
+      </div>
+    </div>
+  </body>    
+</html>
