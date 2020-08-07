@@ -26,26 +26,35 @@ function get_colrow_chance(list, a, b, c) {
     let output = 0;  
     if (list[0] == a && list[1] == b) {
         output += 1;
-        console.log("output at if 1: " + output);
     }
     if (list[1] == b && list[2] == c) {
         output += 1;
-        console.log("output at if 2: " + output);
     }
     if (list[0] == a && list[2] == c) {
         output += 1;
-        console.log("output at if 3: " + output);
     }
-    console.log("output at end of function: " + output);
+    return output;
+}
+
+function findInArray(value, array) {
+    let output = false;
+    for (var i = 0; i < array.length; i++){
+        const item = array[i]
+        if (item === value) {
+            output = true;
+            break;
+        }
+    }
     return output;
 }
 
 function showResults(){
     const answerContainers = quizContainer.querySelectorAll('.answers');
 
-    let dich_answer_list = [];
-    let unsure_answer_list = [];
+    let list_unsure_answers = [];
+    let list_dich_answers = []
 
+    console.log(questions)
     questions.forEach( (currentQuestion, questionNumber)  => {
         const answerContainer = answerContainers[questionNumber];
         const selector = `input[name=question${questionNumber}]:checked`;
@@ -53,52 +62,56 @@ function showResults(){
 
         // the first three are the columns, the last three are the rows
         var dich_q_numbers = [0,1,2,4,5,6];
-        if (questionNumber in dich_q_numbers) {
-            console.log("if question in list is working")
+        if (findInArray(questionNumber, dich_q_numbers)) {
             if (userAnswer == 'a') {
-                dich_answer_list.push(0);
+                list_dich_answers.push(0);
             } else if (userAnswer == 'b') {
-                dich_answer_list.push(1);
+                list_dich_answers.push(1);
             } else {
-                dich_answer_list.push(2);
+                list_dich_answers.push(2);
             }
         } else {
             if (userAnswer == 'a') {
-                unsure_answer_list.push(0);
+                list_unsure_answers.push(0);
             } else if (userAnswer == "b") {
-                unsure_answer_list.push(1);
+                list_unsure_answers.push(1);
             } else if (userAnswer == "c") {
-                unsure_answer_list.push(2);
+                list_unsure_answers.push(2);
             } else {
-                unsure_answer_list.push(3);
+                list_unsure_answers.push(3);
             }
         }
-        console.log(dich_answer_list);
     });
+    console.log('list_dich_answers: ' + list_dich_answers);
+    console.log('list_unsure_answers: ' + list_unsure_answers);
+    
     let tally_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    let list_col_dichs = list_dich_answers.slice(0, 3);
+    let list_row_dichs = list_dich_answers.slice(3, 6);
 
     const cols = [[0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15]];
     const rows = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]];
     
-    let list_col_dichs = dich_answer_list.slice(0, 3);
-    let list_row_dichs = dich_answer_list.slice(3, 6);
     
     //todo: make the list of lists of dichotomies the same by inverting the 1s and zeros on list-row-dichs
     //and swapping around the last two lists on list_col_dichs so that they both are [[1, 0, 1], [1, 1, 0], [0, 1, 1], [0, 0, 0]]
-    if (!(2 in list_col_dichs)) {    //THESE ARE NOT WORKING FIX ASAP   
-        if (!(list_col_dichs in [[1, 0, 1], [1, 1, 0], [0, 0, 0], [0, 1, 1]]) && unsure_answer_list[0] !== 3) {
-            list_row_dichs[unsure_answer_list[0]] = Math.abs(list_row_dichs[unsure_answer_list[0]] - 1);
+    if (!(findInArray(2, list_col_dichs))) {    //THESE ARE NOT WORKING FIX ASAP   
+        if (!(findInArray(list_col_dichs.join(''), ['101', '110', '000', '011'])) && list_unsure_answers[0] !== 3) {
+            console.log(list_col_dichs[list_unsure_answers[0]])
+            list_col_dichs[list_unsure_answers[0]] = Math.abs(list_col_dichs[list_unsure_answers[0]] - 1);
+            console.log(list_col_dichs[list_unsure_answers[0]])
         }
     }
-    if (!(2 in list_row_dichs)) {
-        if (!(list_row_dichs in [[0, 1, 0], [1, 1, 0], [1, 0, 0], [1, 1, 1]]) && unsure_answer_list[1] !== 3) {
-            list_row_dichs[unsure_answer_list[1]] = Math.abs(list_row_dichs[unsure_answer_list[1]] - 1);
-    
+    if (!(findInArray(2, list_row_dichs))) {
+        if (!(findInArray(list_row_dichs.join(''), ['010', '110', '100', '111'])) && list_unsure_answers[1] !== 3) {
+            list_row_dichs[list_unsure_answers[1]] = Math.abs(list_row_dichs[list_unsure_answers[1]] - 1);
         }
     }
     
-    console.log("list_col_dichs: " + list_col_dichs);
-    console.log("list_row_dichs: " + list_row_dichs);
+    console.log("list_col_dichs joined: " + list_col_dichs.join(''))
+    //console.log("list_col_dichs: " + list_col_dichs);
+    //console.log("list_row_dichs: " + list_row_dichs);
 
     let col_chances = [0, 0, 0, 0];
     let row_chances = [0, 0, 0, 0];
@@ -114,8 +127,8 @@ function showResults(){
     row_chances[2] = get_colrow_chance(list_row_dichs, 1, 0, 0);
     row_chances[3] = get_colrow_chance(list_row_dichs, 1, 1, 1);
 
-    console.log("col_chances: " + col_chances);
-    console.log("row_chances: " + row_chances);
+    //console.log("col_chances: " + col_chances);
+    //console.log("row_chances: " + row_chances);
     
     for (var i = 0; i < 4; i++) {
         cols[i].forEach(j => tally_list[j] += col_chances[i]);
@@ -219,8 +232,8 @@ const questions = [
         question: "Out of the last three questions, which one were you the least confident answering?",
         answers: {
             a: "abstract/concrete",
-            b: "direct/informative",
-            c: "control/movement"
+            b: "affiliative/pragmatic",
+            c: "systematic/interest"
         }
     }
 ];
