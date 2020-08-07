@@ -54,7 +54,6 @@ function showResults(){
     let list_unsure_answers = [];
     let list_dich_answers = []
 
-    console.log(questions)
     questions.forEach( (currentQuestion, questionNumber)  => {
         const answerContainer = answerContainers[questionNumber];
         const selector = `input[name=question${questionNumber}]:checked`;
@@ -82,9 +81,6 @@ function showResults(){
             }
         }
     });
-    console.log('list_dich_answers: ' + list_dich_answers);
-    console.log('list_unsure_answers: ' + list_unsure_answers);
-    
     let tally_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     let list_col_dichs = list_dich_answers.slice(0, 3);
@@ -98,9 +94,7 @@ function showResults(){
     //and swapping around the last two lists on list_col_dichs so that they both are [[1, 0, 1], [1, 1, 0], [0, 1, 1], [0, 0, 0]]
     if (!(findInArray(2, list_col_dichs))) {    //THESE ARE NOT WORKING FIX ASAP   
         if (!(findInArray(list_col_dichs.join(''), ['101', '110', '000', '011'])) && list_unsure_answers[0] !== 3) {
-            console.log(list_col_dichs[list_unsure_answers[0]])
             list_col_dichs[list_unsure_answers[0]] = Math.abs(list_col_dichs[list_unsure_answers[0]] - 1);
-            console.log(list_col_dichs[list_unsure_answers[0]])
         }
     }
     if (!(findInArray(2, list_row_dichs))) {
@@ -108,10 +102,6 @@ function showResults(){
             list_row_dichs[list_unsure_answers[1]] = Math.abs(list_row_dichs[list_unsure_answers[1]] - 1);
         }
     }
-    
-    console.log("list_col_dichs joined: " + list_col_dichs.join(''))
-    //console.log("list_col_dichs: " + list_col_dichs);
-    //console.log("list_row_dichs: " + list_row_dichs);
 
     let col_chances = [0, 0, 0, 0];
     let row_chances = [0, 0, 0, 0];
@@ -121,14 +111,10 @@ function showResults(){
     col_chances[2] = get_colrow_chance(list_col_dichs, 0, 0, 0);
     col_chances[3] = get_colrow_chance(list_col_dichs, 0, 1, 1);
     //calculate the chance for a given column to be selected
-    //THIS IS NOT WORKING PROPERLY - FIX ASAP
     row_chances[0] = get_colrow_chance(list_row_dichs, 0, 1, 0);
     row_chances[1] = get_colrow_chance(list_row_dichs, 0, 0, 1);
     row_chances[2] = get_colrow_chance(list_row_dichs, 1, 0, 0);
     row_chances[3] = get_colrow_chance(list_row_dichs, 1, 1, 1);
-
-    //console.log("col_chances: " + col_chances);
-    //console.log("row_chances: " + row_chances);
     
     for (var i = 0; i < 4; i++) {
         cols[i].forEach(j => tally_list[j] += col_chances[i]);
@@ -208,7 +194,7 @@ const questions = [
         }
     },
     {
-        question: "Abstract or Concrete?", //something is very wrong with these last three questions
+        question: "Abstract or Concrete?",
         answers: {
             a: "abstract",
             b: "concrete"
