@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
   <style>
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
     body {
       font-family: Arial;
       color: black;
@@ -39,40 +46,16 @@
     <div class="split left">
       <div class="centered">
         <form action="/" method="POST">
-          <h2>Questions</h2>
-            {% for question in questions %}
-            <h3><u>{{question}}</u></h3>
-            <table>
-              <tr>
-                {% for answer in questions[question] %}
-                <td>  
-                  {{ answer }}
-                <input type='radio' value='{{answer}}' id = '{{ answer }}' name='{{question}}' onclick='check()'/>
-                </td>
-                {% endfor %}
-              </tr>
-            </table>
-            {% endfor %}
-          <input type="submit" value="submit" />
+          <h2><u>Questions</u></h2>
+          <div id="quiz"></div>
         </form>
       </div>
     </div>       
     <div class="split right">
       <div class="centered">
-        <p id="responses"></p>
-        <script>
-          //document.getElementsByClassName("radio").addEventListener("click", check);
-      
-          var questions = ['Initiating or responding?', 'Direct or informative?', 'Control or movement?', 'Least confident answer?', 'Abstract or concrete?', 'Affiliative or pragmatic?', 'Systematic or interest?', 'Least confident answer? ']
-          var answers = [['initiating', 'responding'], ['direct', 'informative'], ['control', 'movement'], ['init/resp', 'dire/info', 'cont/move'], ['abstract', 'concrete'], ['affiliative', 'pragmatic'], ['systematic', 'interest'], ['abs/conc', 'affl/prag', 'syst/intr']]
-          var responses_list = []
-          var responses_text = ""
-          
-          function check() {
-            document.getElementById("responses").innerHTML = document.getElementById('initiating').checked;
-          }
-        </script>
+        <div id = "results"></div>
       </div>
     </div>
-  </body>    
+  </body>
+  <script src="main.js"></script>
 </html>
