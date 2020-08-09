@@ -21,7 +21,7 @@ function buildQuiz(){
     );
     quizContainer.innerHTML = output.join('');
 }
-
+//add this to util
 function get_colrow_chance(list, a, b, c) {
     let output = 0;  
     if (list[0] == a && list[1] == b) {
@@ -35,7 +35,7 @@ function get_colrow_chance(list, a, b, c) {
     }
     return output;
 }
-
+//add this to util
 function findInArray(value, array) {
     let output = false;
     for (var i = 0; i < array.length; i++){
@@ -60,6 +60,7 @@ function showResults(){
         const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
         // the first three are the columns, the last three are the rows
+        //either add the following if-else section to utils or just change the questions from abc to 012
         var dich_q_numbers = [0,1,2,4,5,6];
         if (findInArray(questionNumber, dich_q_numbers)) {
             if (userAnswer == 'a') {
@@ -93,6 +94,7 @@ function showResults(){
     and swapping around the last two lists on list_col_dichs so that they both are ["101", "110", "011", "000"]
     however, i didn't because i wanted to preserve the 16personalities type-grid layout*/
 
+    //TODO: stick these in a function in utils called "swapUnsureDich" or something
     if (!(findInArray(2, list_col_dichs))) {  
         if (!(findInArray(list_col_dichs.join(''), ['101', '110', '000', '011'])) && list_unsure_answers[0] !== 3) {
             list_col_dichs[list_unsure_answers[0]] = Math.abs(list_col_dichs[list_unsure_answers[0]] - 1);
@@ -106,6 +108,8 @@ function showResults(){
 
     let col_chances = [0, 0, 0, 0];
     let row_chances = [0, 0, 0, 0];
+    
+    //TODO: this could be looped
     //calculate the chance for a given row to be selected
     col_chances[0] = get_colrow_chance(list_col_dichs, 1, 0, 1);
     col_chances[1] = get_colrow_chance(list_col_dichs, 1, 1, 0);
@@ -123,6 +127,7 @@ function showResults(){
     }
 
     // these are the dichotomies that will be displayed in the table.
+    //TODO: put this into a function in utils
     final_dichs = [];
     for (i = 0; i < 3; i++) {
         if (list_col_dichs[i] === 2) {
@@ -148,7 +153,6 @@ function showResults(){
             final_dichs.push(`<span style="color:limegreen">1</span>`);
         }
     }
-    console.log(final_dichs);
     /*
     0: initiating 1:responding
     2: direct 3: informative
