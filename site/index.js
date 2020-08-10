@@ -1,10 +1,13 @@
-const {get_colrow_chance, findInArray} = require('./util.js');
+import {get_colrow_chance, findInArray} from './util.js';
+import questions from '../data/questions.json';
+
+console.log(questions);
 
 function buildQuiz() {
     const output = [];
     questions.forEach((currentQuestion, questionNumber) => {
         const answers = [];
-        for (letter in currentQuestion.answers) {
+        for (const letter in currentQuestion.answers) {
             //add html button for each option
             answers.push(
                 `<label>
@@ -116,8 +119,8 @@ function showResults() {
     }
 
     // these are the dichotomies that will be displayed in the table.
-    final_dichs = [];
-    for (i = 0; i < 3; i++) {
+    const final_dichs = [];
+    for (let i = 0; i < 3; i++) {
         if (list_col_dichs[i] === 2) {
             final_dichs.push('<span style="color:red">0</span>');
             final_dichs.push('<span style="color:red">0</span>');
@@ -129,7 +132,7 @@ function showResults() {
             final_dichs.push(`<span style="color:limegreen">1</span>`);
         }
     }
-    for (i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
         if (list_row_dichs[i] === 2) {
             final_dichs.push('<span style="color:red">0</span>');
             final_dichs.push('<span style="color:red">0</span>');
@@ -232,68 +235,6 @@ function showResults() {
 const quizContainer = document.getElementById('quiz');
 const resultsContainer = document.getElementById('results');
 const submitButton = document.getElementById('submit');
-const questions = [
-    {
-        question: 'Initiating or Responding?',
-        answers: {
-            a: 'initiating',
-            b: 'responding',
-        },
-    },
-    {
-        question: 'Direct or Informative?',
-        answers: {
-            a: 'direct',
-            b: 'informative',
-        },
-    },
-    {
-        question: 'Control or Movement?',
-        answers: {
-            a: 'control',
-            b: 'movement',
-        },
-    },
-    {
-        question:
-            'Out of these first three questions, which one were you the least confident answering?',
-        answers: {
-            a: 'initiating/responding',
-            b: 'direct/informative',
-            c: 'control/movement',
-        },
-    },
-    {
-        question: 'Abstract or Concrete?',
-        answers: {
-            a: 'abstract',
-            b: 'concrete',
-        },
-    },
-    {
-        question: 'Affiliative or Pragmatic?',
-        answers: {
-            a: 'affiliative',
-            b: 'pragmatic',
-        },
-    },
-    {
-        question: 'Systematic or Interest?',
-        answers: {
-            a: 'systematic',
-            b: 'interest',
-        },
-    },
-    {
-        question:
-            'Out of the last three questions, which one were you the least confident answering?',
-        answers: {
-            a: 'abstract/concrete',
-            b: 'affiliative/pragmatic',
-            c: 'systematic/interest',
-        },
-    },
-];
 
 buildQuiz();
 quizContainer.addEventListener('click', showResults);

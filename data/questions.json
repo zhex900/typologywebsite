@@ -1,0 +1,60 @@
+[
+  {
+    "question": "Initiating or Responding?",
+    "answers": {
+      "a": "initiating",
+      "b": "responding"
+    }
+  },
+  {
+    "question": "Direct or Informative?",
+    "answers": {
+      "a": "direct",
+      "b": "informative"
+    }
+  },
+  {
+    "question": "Control or Movement?",
+    "answers": {
+      "a": "control",
+      "b": "movement"
+    }
+  },
+  {
+    "question": "Out of these first three questions, which one were you the least confident answering?",
+    "answers": {
+      "a": "initiating/responding",
+      "b": "direct/informative",
+      "c": "control/movement"
+    }
+  },
+  {
+    "question": "Abstract or Concrete?",
+    "answers": {
+      "a": "abstract",
+      "b": "concrete"
+    }
+  },
+  {
+    "question": "Affiliative or Pragmatic?",
+    "answers": {
+      "a": "affiliative",
+      "b": "pragmatic"
+    }
+  },
+  {
+    "question": "Systematic or Interest?",
+    "answers": {
+      "a": "systematic",
+      "b": "interest"
+    }
+  },
+  {
+    "question": "Out of the last three questions, which one were you the least confident answering?",
+    "answers": {
+      "a": "abstract/concrete",
+      "b": "affiliative/pragmatic",
+      "c": "systematic/interest"
+    }
+  }
+]
