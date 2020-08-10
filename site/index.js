@@ -2,6 +2,7 @@ import {get_colrow_chance, findInArray} from './util.js';
 import questions from '../data/questions.json';
 
 console.log(questions);
+const quizContainer = document.getElementById('quiz');
 
 function buildQuiz() {
     const output = [];
@@ -232,7 +233,7 @@ function showResults() {
     </table>`;
 }
 
-const quizContainer = document.getElementById('quiz');
+
 const resultsContainer = document.getElementById('results');
 const submitButton = document.getElementById('submit');
 
