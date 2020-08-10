@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <style>
-    th,
-    td {
-      padding: 10px;
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
+    <style>
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
 
-    body {
-      font-family: Arial;
-      color: black;
-    }
-        
-    .split {
-      height: 100%;
-      width: 50%;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      overflow-x: hidden;
-      padding-top: 20px;
-    }
-        
-    .left {
-      left: 0;
-      background-color: white;
-    }
-        
-    .right {
-      right: 0;
-      background-color: lightgray;
-    }
-        
-    .centered {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-  </style>
-  <body>
-    <h1>Alternative typing test</h1>
-    <div class="split left">
-      <div class="centered">
-        <form action="/" method="POST">
-          <h2><u>Questions</u></h2>
-          <div id="quiz"></div>
-        </form>
-      </div>
-    </div>       
-    <div class="split right">
-      <div class="centered">
-        <div id = "results"></div>
-      </div>
-    </div>
-  </body>
-  <script type="module" src="main.js"></script>
+        body {
+            font-family: Arial;
+            color: black;
+        }
+
+        .split {
+            height: 100%;
+            width: 50%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .left {
+            left: 0;
+            background-color: white;
+        }
+
+        .right {
+            right: 0;
+            background-color: lightgray;
+        }
+
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
+    <body>
+        <h1>Alternative typing test</h1>
+        <div class="split left">
+            <div class="centered">
+                <form action="/" method="POST">
+                    <h2><u>Questions</u></h2>
+                    <div id="quiz"></div>
+                </form>
+            </div>
+        </div>
+        <div class="split right">
+            <div class="centered">
+                <div id="results"></div>
+            </div>
+        </div>
+    </body>
+    <script type="module" src="main.js"></script>
 </html>

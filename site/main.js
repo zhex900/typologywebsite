@@ -1,42 +1,39 @@
-import { get_colrow_chance, findInArray } from './util.js';
+const {get_colrow_chance, findInArray} = require('./util.js');
 
-function buildQuiz(){
+function buildQuiz() {
     const output = [];
-    questions.forEach(
-        (currentQuestion, questionNumber) => {
-            const answers = [];
-            for (letter in currentQuestion.answers){
-
-                //add html button for each option
-                answers.push(
-                    `<label>
+    questions.forEach((currentQuestion, questionNumber) => {
+        const answers = [];
+        for (letter in currentQuestion.answers) {
+            //add html button for each option
+            answers.push(
+                `<label>
                         <input type = "radio" name = "question${questionNumber}" value="${letter}">
                         ${currentQuestion.answers[letter]}                  
                     </label>`
-                );
-            }
-            output.push(
-                `<h3><div class="question"> ${currentQuestion.question} </div></h3>
-                <div class="answers"> ${answers.join('')} </div>`
             );
         }
-    );
+        output.push(
+            `<h3><div class="question"> ${currentQuestion.question} </div></h3>
+                <div class="answers"> ${answers.join('')} </div>`
+        );
+    });
     quizContainer.innerHTML = output.join('');
 }
 
-function showResults(){
+function showResults() {
     const answerContainers = quizContainer.querySelectorAll('.answers');
 
     let list_unsure_answers = [];
-    let list_dich_answers = []
+    let list_dich_answers = [];
 
-    questions.forEach( (currentQuestion, questionNumber)  => {
+    questions.forEach((currentQuestion, questionNumber) => {
         const answerContainer = answerContainers[questionNumber];
         const selector = `input[name=question${questionNumber}]:checked`;
         const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
         // the first three are the columns, the last three are the rows
-        var dich_q_numbers = [0,1,2,4,5,6];
+        var dich_q_numbers = [0, 1, 2, 4, 5, 6];
         if (findInArray(questionNumber, dich_q_numbers)) {
             if (userAnswer == 'a') {
                 list_dich_answers.push(0);
@@ -48,9 +45,9 @@ function showResults(){
         } else {
             if (userAnswer == 'a') {
                 list_unsure_answers.push(0);
-            } else if (userAnswer == "b") {
+            } else if (userAnswer == 'b') {
                 list_unsure_answers.push(1);
-            } else if (userAnswer == "c") {
+            } else if (userAnswer == 'c') {
                 list_unsure_answers.push(2);
             } else {
                 list_unsure_answers.push(3);
@@ -62,21 +59,41 @@ function showResults(){
     let list_col_dichs = list_dich_answers.slice(0, 3);
     let list_row_dichs = list_dich_answers.slice(3, 6);
 
-    const cols = [[0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15]];
-    const rows = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]];
+    const cols = [
+        [0, 4, 8, 12],
+        [1, 5, 9, 13],
+        [2, 6, 10, 14],
+        [3, 7, 11, 15],
+    ];
+    const rows = [
+        [0, 1, 2, 3],
+        [4, 5, 6, 7],
+        [8, 9, 10, 11],
+        [12, 13, 14, 15],
+    ];
 
     /*i could have make the list of lists of dichotomies the same by inverting the 1s and zeros on list-row-dichs
     and swapping around the last two lists on list_col_dichs so that they both are ["101", "110", "011", "000"]
     however, i didn't because i wanted to preserve the 16personalities type-grid layout*/
 
-    if (!(findInArray(2, list_col_dichs))) {
-        if (!(findInArray(list_col_dichs.join(''), ['101', '110', '000', '011'])) && list_unsure_answers[0] !== 3) {
-            list_col_dichs[list_unsure_answers[0]] = Math.abs(list_col_dichs[list_unsure_answers[0]] - 1);
+    if (!findInArray(2, list_col_dichs)) {
+        if (
+            !findInArray(list_col_dichs.join(''), ['101', '110', '000', '011']) &&
+            list_unsure_answers[0] !== 3
+        ) {
+            list_col_dichs[list_unsure_answers[0]] = Math.abs(
+                list_col_dichs[list_unsure_answers[0]] - 1
+            );
         }
     }
-    if (!(findInArray(2, list_row_dichs))) {
-        if (!(findInArray(list_row_dichs.join(''), ['010', '110', '100', '111'])) && list_unsure_answers[1] !== 3) {
-            list_row_dichs[list_unsure_answers[1]] = Math.abs(list_row_dichs[list_unsure_answers[1]] - 1);
+    if (!findInArray(2, list_row_dichs)) {
+        if (
+            !findInArray(list_row_dichs.join(''), ['010', '110', '100', '111']) &&
+            list_unsure_answers[1] !== 3
+        ) {
+            list_row_dichs[list_unsure_answers[1]] = Math.abs(
+                list_row_dichs[list_unsure_answers[1]] - 1
+            );
         }
     }
 
@@ -94,8 +111,8 @@ function showResults(){
     row_chances[3] = get_colrow_chance(list_row_dichs, 1, 1, 1);
 
     for (var i = 0; i < 4; i++) {
-        cols[i].forEach(j => tally_list[j] += col_chances[i]);
-        rows[i].forEach(j => tally_list[j] += row_chances[i]);
+        cols[i].forEach((j) => (tally_list[j] += col_chances[i]));
+        rows[i].forEach((j) => (tally_list[j] += row_chances[i]));
     }
 
     // these are the dichotomies that will be displayed in the table.
@@ -212,68 +229,70 @@ function showResults(){
     </table>`;
 }
 
-const quizContainer = document.getElementById('quiz')
-const resultsContainer = document.getElementById('results')
-const submitButton = document.getElementById('submit')
+const quizContainer = document.getElementById('quiz');
+const resultsContainer = document.getElementById('results');
+const submitButton = document.getElementById('submit');
 const questions = [
     {
-        question: "Initiating or Responding?",
+        question: 'Initiating or Responding?',
         answers: {
-            a: "initiating",
-            b: "responding"
-        }
+            a: 'initiating',
+            b: 'responding',
+        },
     },
     {
-        question: "Direct or Informative?",
+        question: 'Direct or Informative?',
         answers: {
-            a: "direct",
-            b: "informative"
-        }
+            a: 'direct',
+            b: 'informative',
+        },
     },
     {
-        question: "Control or Movement?",
+        question: 'Control or Movement?',
         answers: {
-            a: "control",
-            b: "movement"
-        }
+            a: 'control',
+            b: 'movement',
+        },
     },
     {
-        question: "Out of these first three questions, which one were you the least confident answering?",
+        question:
+            'Out of these first three questions, which one were you the least confident answering?',
         answers: {
-            a: "initiating/responding",
-            b: "direct/informative",
-            c: "control/movement",
-        }
+            a: 'initiating/responding',
+            b: 'direct/informative',
+            c: 'control/movement',
+        },
     },
     {
-        question: "Abstract or Concrete?",
+        question: 'Abstract or Concrete?',
         answers: {
-            a: "abstract",
-            b: "concrete"
-        }
+            a: 'abstract',
+            b: 'concrete',
+        },
     },
     {
-        question: "Affiliative or Pragmatic?",
+        question: 'Affiliative or Pragmatic?',
         answers: {
-            a: "affiliative",
-            b: "pragmatic"
-        }
+            a: 'affiliative',
+            b: 'pragmatic',
+        },
     },
     {
-        question: "Systematic or Interest?",
+        question: 'Systematic or Interest?',
         answers: {
-            a: "systematic",
-            b: "interest"
-        }
+            a: 'systematic',
+            b: 'interest',
+        },
     },
     {
-        question: "Out of the last three questions, which one were you the least confident answering?",
+        question:
+            'Out of the last three questions, which one were you the least confident answering?',
         answers: {
-            a: "abstract/concrete",
-            b: "affiliative/pragmatic",
-            c: "systematic/interest"
-        }
-    }
+            a: 'abstract/concrete',
+            b: 'affiliative/pragmatic',
+            c: 'systematic/interest',
+        },
+    },
 ];
 
 buildQuiz();

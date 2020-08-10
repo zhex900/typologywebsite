@@ -1,0 +1,23 @@
+{
+  "name": "typologywebsite",
+  "version": "1.0.0",
+  "description": "A website containing information and demos about personality types.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhex900/typologywebsite.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhex900/typologywebsite/issues"
+  },
+  "homepage": "https://github.com/zhex900/typologywebsite#readme",
+  "devDependencies": {
+    "jest": "^26.2.2",
+    "prettier": "2.0.5"
+  }
+}

@@ -1,2 +1,3 @@
 # typologywebsite
- A website containing information and demos about personality types.
+
+A website containing information and demos about personality types.
