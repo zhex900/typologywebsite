@@ -1,10 +1,12 @@
+const {get_colrow_chance, findInArray} = require('util');
+
 function buildQuiz(){
     const output = [];
     questions.forEach(
         (currentQuestion, questionNumber) => {
             const answers = [];
             for (letter in currentQuestion.answers){
-                
+
                 //add html button for each option
                 answers.push(
                     `<label>
@@ -20,32 +22,6 @@ function buildQuiz(){
         }
     );
     quizContainer.innerHTML = output.join('');
-}
-
-function get_colrow_chance(list, a, b, c) {
-    let output = 0;  
-    if (list[0] == a && list[1] == b) {
-        output += 1;
-    }
-    if (list[1] == b && list[2] == c) {
-        output += 1;
-    }
-    if (list[0] == a && list[2] == c) {
-        output += 1;
-    }
-    return output;
-}
-
-function findInArray(value, array) {
-    let output = false;
-    for (var i = 0; i < array.length; i++){
-        const item = array[i]
-        if (item === value) {
-            output = true;
-            break;
-        }
-    }
-    return output;
 }
 
 function showResults(){
@@ -88,12 +64,12 @@ function showResults(){
 
     const cols = [[0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15]];
     const rows = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]];
-    
+
     /*i could have make the list of lists of dichotomies the same by inverting the 1s and zeros on list-row-dichs
     and swapping around the last two lists on list_col_dichs so that they both are ["101", "110", "011", "000"]
     however, i didn't because i wanted to preserve the 16personalities type-grid layout*/
 
-    if (!(findInArray(2, list_col_dichs))) {  
+    if (!(findInArray(2, list_col_dichs))) {
         if (!(findInArray(list_col_dichs.join(''), ['101', '110', '000', '011'])) && list_unsure_answers[0] !== 3) {
             list_col_dichs[list_unsure_answers[0]] = Math.abs(list_col_dichs[list_unsure_answers[0]] - 1);
         }
@@ -116,7 +92,7 @@ function showResults(){
     row_chances[1] = get_colrow_chance(list_row_dichs, 0, 0, 1);
     row_chances[2] = get_colrow_chance(list_row_dichs, 1, 0, 0);
     row_chances[3] = get_colrow_chance(list_row_dichs, 1, 1, 1);
-    
+
     for (var i = 0; i < 4; i++) {
         cols[i].forEach(j => tally_list[j] += col_chances[i]);
         rows[i].forEach(j => tally_list[j] += row_chances[i]);
