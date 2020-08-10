@@ -7,3 +7,8 @@ A website containing information and demos about personality types.
 
 # Build
 `npm run build`
+
+# Development sever
+`npm run dev`
+
+You can access the development server on localhost:9000
