@@ -1,5 +1,4 @@
-
-module.exports.get_colrow_chance = (list, a, b, c) => {
+export function get_colrow_chance(list, a, b, c) {
     let output = 0;
     if (list[0] == a && list[1] == b) {
         output += 1;
@@ -13,7 +12,7 @@ module.exports.get_colrow_chance = (list, a, b, c) => {
     return output;
 }
 
-module.exports.findInArray = (value, array) => {
+export function findInArray(value, array) {
     let output = false;
     for (var i = 0; i < array.length; i++){
         const item = array[i]

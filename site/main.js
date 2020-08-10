@@ -1,4 +1,4 @@
-const {get_colrow_chance, findInArray} = require('util');
+import { get_colrow_chance, findInArray } from './util.js';
 
 function buildQuiz(){
     const output = [];
