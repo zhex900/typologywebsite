@@ -123,7 +123,7 @@ function showResults(){
     }
 
     // these are the dichotomies that will be displayed in the table.
-    final_dichs = [];
+    let final_dichs = [];
     for (i = 0; i < 3; i++) {
         if (list_col_dichs[i] === 2) {
             final_dichs.push('<span style="color:red">0</span>');
