@@ -180,7 +180,10 @@ function showResults(){
     <p>(this is just a demonstration of how it works, and wouldn't be shown in the final version)</p>
     <table>
         <tr>
-            <th>Results</th>
+            <th>
+                Interaction styles >
+                Temperaments V
+            </th>
             <th>
                 Finisher
                 Responding:${final_dichs[1]}
