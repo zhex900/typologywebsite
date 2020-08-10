@@ -22,7 +22,7 @@ function buildQuiz(){
     quizContainer.innerHTML = output.join('');
 }
 
-function get_colrow_chance(list, a, b, c) {
+function getColrowChance(list, a, b, c) {
     let output = 0;  
     if (list[0] == a && list[1] == b) {
         output += 1;
@@ -36,6 +36,7 @@ function get_colrow_chance(list, a, b, c) {
     return output;
 }
 
+//this can be found with .filter
 function findInArray(value, array) {
     let output = false;
     for (var i = 0; i < array.length; i++){
@@ -46,6 +47,30 @@ function findInArray(value, array) {
         }
     }
     return output;
+}
+
+function getTypeFromArray(array) {
+    types = ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"];
+    largest_index = 0;
+    largest_value = 0;
+    only_one_largest = true
+    for (var i = 0; i < array.length; i++) {
+        if (largest_value === array[i]) {
+            console.log("multiple largest")
+            only_one_largest = false;
+        } else if (array[i] > largest_value) {
+            console.log("largest value at " + i)
+            only_one_largest = true;
+            largest_value = array[i];
+            largest_index = i;
+        }
+    }
+    console.log("largest index: " + largest_index);
+    if (only_one_largest === false) {
+        return "";
+    } else {
+        return "You are (probably) an " + types[largest_index];
+    }
 }
 
 function showResults(){
@@ -107,15 +132,15 @@ function showResults(){
     let col_chances = [0, 0, 0, 0];
     let row_chances = [0, 0, 0, 0];
     //calculate the chance for a given row to be selected
-    col_chances[0] = get_colrow_chance(list_col_dichs, 1, 0, 1);
-    col_chances[1] = get_colrow_chance(list_col_dichs, 1, 1, 0);
-    col_chances[2] = get_colrow_chance(list_col_dichs, 0, 0, 0);
-    col_chances[3] = get_colrow_chance(list_col_dichs, 0, 1, 1);
+    col_chances[0] = getColrowChance(list_col_dichs, 1, 0, 1);
+    col_chances[1] = getColrowChance(list_col_dichs, 1, 1, 0);
+    col_chances[2] = getColrowChance(list_col_dichs, 0, 0, 0);
+    col_chances[3] = getColrowChance(list_col_dichs, 0, 1, 1);
     //calculate the chance for a given column to be selected
-    row_chances[0] = get_colrow_chance(list_row_dichs, 0, 1, 0);
-    row_chances[1] = get_colrow_chance(list_row_dichs, 0, 0, 1);
-    row_chances[2] = get_colrow_chance(list_row_dichs, 1, 0, 0);
-    row_chances[3] = get_colrow_chance(list_row_dichs, 1, 1, 1);
+    row_chances[0] = getColrowChance(list_row_dichs, 0, 1, 0);
+    row_chances[1] = getColrowChance(list_row_dichs, 0, 0, 1);
+    row_chances[2] = getColrowChance(list_row_dichs, 1, 0, 0);
+    row_chances[3] = getColrowChance(list_row_dichs, 1, 1, 1);
     
     for (var i = 0; i < 4; i++) {
         cols[i].forEach(j => tally_list[j] += col_chances[i]);
@@ -126,29 +151,23 @@ function showResults(){
     let final_dichs = [];
     for (i = 0; i < 3; i++) {
         if (list_col_dichs[i] === 2) {
-            final_dichs.push('<span style="color:red">0</span>');
-            final_dichs.push('<span style="color:red">0</span>');
+            final_dichs.push('<span style="color:red">0</span>', '<span style="color:red">0</span>');
         } else if (list_col_dichs[i] === 0) {
-            final_dichs.push(`<span style="color:limegreen">1</span>`);
-            final_dichs.push(`<span style="color:red">0</span>`);
+            final_dichs.push(`<span style="color:limegreen">1</span>`, `<span style="color:red">0</span>`);
         } else {
-            final_dichs.push(`<span style="color:red">0</span>`);
-            final_dichs.push(`<span style="color:limegreen">1</span>`);
+            final_dichs.push(`<span style="color:red">0</span>`, `<span style="color:limegreen">1</span>`);
         }
     }
     for (i = 0; i < 3; i++) {
         if (list_row_dichs[i] === 2) {
-            final_dichs.push('<span style="color:red">0</span>');
-            final_dichs.push('<span style="color:red">0</span>');
+            final_dichs.push('<span style="color:red">0</span>', '<span style="color:red">0</span>');
         } else if (list_row_dichs[i] === 0) {
-            final_dichs.push(`<span style="color:limegreen">1</span>`);
-            final_dichs.push(`<span style="color:red">0</span>`);
+            final_dichs.push(`<span style="color:limegreen">1</span>`, `<span style="color:red">0</span>`);
         } else {
-            final_dichs.push(`<span style="color:red">0</span>`);
-            final_dichs.push(`<span style="color:limegreen">1</span>`);
+            final_dichs.push(`<span style="color:red">0</span>`, `<span style="color:limegreen">1</span>`);
         }
     }
-    console.log(final_dichs);
+    result = getTypeFromArray(tally_list)
     /*
     0: initiating 1:responding
     2: direct 3: informative
@@ -157,32 +176,34 @@ function showResults(){
     8: affiliative 9: pragmatic
     10: systematic 11: interest
     */
-    resultsContainer.innerHTML = `<table>
+    resultsContainer.innerHTML = `<h2>Results:</h2>
+    <p>(this is just a demonstration of how it works, and wouldn't be shown in the final version)</p>
+    <table>
         <tr>
             <th>Results</th>
             <th>
                 Finisher
                 Responding:${final_dichs[1]}
-                Direct:${final_dichs[2]}
-                Movement:${final_dichs[5]}
+                Directive:${final_dichs[2]}
+                Progression:${final_dichs[5]}
             </th>
             <th>
                 Background
                 Responding:${final_dichs[1]}
                 Informative:${final_dichs[3]}
-                Control:${final_dichs[4]}
+                Outcome:${final_dichs[4]}
             </th>
             <th>
                 In-charge
                 Initiating:${final_dichs[0]}
                 Direct:${final_dichs[2]}
-                Control:${final_dichs[4]}
+                Outcome:${final_dichs[4]}
             </th>
             <th>
                 Starter
                 Initiating:${final_dichs[0]}
                 Informative:${final_dichs[3]}
-                Movement:${final_dichs[5]}
+                Progression:${final_dichs[5]}
             </th>
         </tr>
         <tr>
@@ -233,7 +254,8 @@ function showResults(){
             <td>ESTP:${tally_list[14]}</td>
             <td>ESFP:${tally_list[15]}</td>
         </tr>
-    </table>`;
+    </table>
+    <h1>${result}</h1>`;
 }
 
 const quizContainer = document.getElementById('quiz')
@@ -250,23 +272,23 @@ const questions = [
     {
         question: "Direct or Informative?",
         answers: {
-            a: "direct",
+            a: "directive",
             b: "informative"
         }
     },
     {
-        question: "Control or Movement?",
+        question: "Outcome or Progression?",
         answers: {
-            a: "control",
-            b: "movement"
+            a: "outcome",
+            b: "progression"
         }
     },
     {
         question: "Out of these first three questions, which one were you the least confident answering?",
         answers: {
             a: "initiating/responding",
-            b: "direct/informative",
-            c: "control/movement",
+            b: "directive/informative",
+            c: "outcome/progression",
         }
     },
     {
