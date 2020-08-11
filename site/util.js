@@ -24,5 +24,22 @@ export const findInArray = (value, array) => {
     return output;
 };
 export const getTypeFromArray = (array) => {
-    
-}
+    types = ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"];
+    largest_index = 0;
+    largest_value = 0;
+    only_one_largest = true
+    for (var i = 0; i < array.length; i++) {
+        if (largest_value === array[i]) {
+            only_one_largest = false;
+        } else if (array[i] > largest_value) {
+            only_one_largest = true;
+            largest_value = array[i];
+            largest_index = i;
+        }
+    }
+    if (only_one_largest === false) {
+        return "";
+    } else {
+        return "You are (probably) an " + types[largest_index];
+    }
+};
