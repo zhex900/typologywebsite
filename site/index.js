@@ -1,4 +1,4 @@
-import {get_colrow_chance, findInArray} from './util.js';
+import {getColrowChance, findInArray, getTypeFromArray} from './util.js';
 import questions from '../data/questions.json';
 
 console.log(questions);

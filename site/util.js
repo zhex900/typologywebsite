@@ -23,3 +23,6 @@ export const findInArray = (value, array) => {
     }
     return output;
 };
+export const getTypeFromArray = (array) => {
+    
+}
