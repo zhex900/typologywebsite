@@ -170,5 +170,5 @@ for i in range(1000):
     if found_type == ptype:
         num_correct_tal.append(1)
 
-print(sum(num_correct_tal))
 print(sum(num_correct_ded))
+print(sum(num_correct_tal))
