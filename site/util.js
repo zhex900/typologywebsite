@@ -24,10 +24,10 @@ export const findInArray = (value, array) => {
     return output;
 };
 export const getTypeFromArray = (array) => {
-    types = ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"];
-    largest_index = 0;
-    largest_value = 0;
-    only_one_largest = true
+    const types = ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"];
+    let largest_index = 0;
+    let largest_value = 0;
+    let only_one_largest = true
     for (var i = 0; i < array.length; i++) {
         if (largest_value === array[i]) {
             only_one_largest = false;
