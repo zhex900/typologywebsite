@@ -139,7 +139,7 @@ function showResults() {
             final_dichs.push(`<span style="color:red">0</span>`, `<span style="color:limegreen">1</span>`);
         }
     }
-    result = getTypeFromArray(tally_list)
+    const result = getTypeFromArray(tally_list)
     /*
     0: initiating 1:responding
     2: direct 3: informative
